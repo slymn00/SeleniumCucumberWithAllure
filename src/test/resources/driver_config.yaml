@@ -1,0 +1,7 @@
+chromeHeadless: true
+firefoxHeadless: true
+mobileHeadless: true
+
+#grid true ise testler grid üzerinden çalışır, false ise normal çalışır.
+grid:
+gridUrl:
