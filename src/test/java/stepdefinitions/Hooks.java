@@ -30,12 +30,12 @@ public class Hooks {
     public void removeReportHistory() {
 
         if (Objects.equals(DataFinder.getValue("config", "deleteHistory"), "true")) {
-            Terminal.runCommand("mvn.cmd allure generate --clean --output allure-results");
+            Terminal.runCommand("cmd /c allure generate --clean --output allure-results");
         }
     }
 
     @After
     public void openAllureReport() {
-        Terminal.runCommand("mvn.cmd allure serve -h localhost");
+        Terminal.runCommand("cmd /c allure serve -h localhost");
     }
 }
