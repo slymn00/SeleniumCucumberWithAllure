@@ -1,9 +1,9 @@
 package utility;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -11,41 +11,21 @@ import java.time.Duration;
 
 public class SeleniumBase {
 
-    public final JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
-
-
-   // private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-    //public final Actions actions;
-
-    /*public SeleniumBase() {
-        actions = new Actions(Driver.getDriver());
-    }*/
-
-    /*public SeleniumBase(WebDriver driver) {
-        actions = new Actions(driver);
-    }*/
-
-
-
-
-
     public void clickElement(WebElement element){
         try {
             element.click();
         }catch (Exception e){
-            System.out.println("elemente tıklanılamadı! "+e);
+            Log.fail("elemente tıklanılamadı! "+e);
         }
     }
 
     public String getTextOfElement(WebElement element){
 
         String text = null;
-
         try {
             text=element.getText();
         }catch (Exception e){
-            Log.fail("Elementin yazisi alinamadi.");
+            Log.fail("Elementin yazisi alinamadi.",e);
         }
         return text;
     }
@@ -54,12 +34,16 @@ public class SeleniumBase {
         try {
             Driver.getDriver().get(DataFinder.getValue(url));
         }catch (Exception e){
-            System.out.println("Istenilen URL gidilemedi."+ e);
+            Log.fail("Istenilen URL gidilemedi."+ e);
         }
     }
 
     public void selectBrowserVariety(String variety){
         Driver.setUp(variety);
+    }
+
+    public void refreshThePage(){
+        Driver.getDriver().navigate().refresh();
     }
 
     public String getCurrentUrl(){
@@ -75,7 +59,7 @@ public class SeleniumBase {
         try {
             displayed=element.isDisplayed();
         }catch (Exception e){
-            System.out.println("Element goruntulenemedi!!"+e);
+            Log.fail("Element goruntulenemedi!!"+e);
         }
 
         return displayed;
@@ -96,6 +80,19 @@ public class SeleniumBase {
             Thread.sleep(millisecond);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void moveElementAndClick(WebElement element){
+        try {
+            Actions actions=new Actions(Driver.getDriver());
+            actions.moveToElement(element).build().perform();
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            ((JavascriptExecutor)Driver.getDriver()).executeScript("arguments[0].click();", element);
+
+        }catch (Exception e){
+            Log.fail("Elementte sorunla karşılaşıldı",e);
         }
     }
 }

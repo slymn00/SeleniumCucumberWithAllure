@@ -15,12 +15,6 @@ public class TrendyolHomePage {
     @FindBy(xpath = "//*[@data-id='1']//a")
     public WebElement sliderTop;
 
-    @FindBy(xpath = "//*[@data-id='1']//*[@data-arrow='right']")
-    public WebElement sliderTopRightArrow;
-
-    @FindBy(xpath = "//*[@data-id='1']//*[@data-arrow='left']")
-    public WebElement sliderTopLeftArrow;
-
     @FindBy(id = "logo")
     public WebElement mainLogo;
 

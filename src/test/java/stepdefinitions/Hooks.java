@@ -1,12 +1,9 @@
 package stepdefinitions;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import utility.DataFinder;
 import utility.Driver;
 import utility.Terminal;
@@ -27,16 +24,16 @@ public class Hooks {
         Driver.closeDriver();
     }
 
-    @Before
-    public void removeReportHistory() {
+    @BeforeAll
+    public static void removeReportHistory() {
 
         if (Objects.equals(DataFinder.getValue("config", "deleteHistory"), "true")) {
             Terminal.runCommand("cmd /c allure generate --clean --output allure-results");
         }
     }
 
-    @After
-    public void openAllureReport() {
+    @AfterAll
+    public static void openAllureReport() {
         Terminal.runCommand("cmd /c allure serve -h localhost");
     }
 }
