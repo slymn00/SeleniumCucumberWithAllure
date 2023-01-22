@@ -35,6 +35,14 @@
             <version>${selenium.version}</version>
         </dependency>
 
+
+        <!-- Log class'indaki Log işlemlerindeki fail için kullanıldı fail aldığımız an senaryoyu durdurup allre rapora fail basması için alındı.-->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.4.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>

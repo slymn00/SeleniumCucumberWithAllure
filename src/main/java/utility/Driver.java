@@ -10,10 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 
 public class Driver {
@@ -29,37 +25,27 @@ public class Driver {
         switch (browser) {
             case "chrome" -> {
                 options = driverOptions.chromeUp();
-                if (!DriverConfig.getInstance().isGrid()) {
-                    WebDriverManager.chromedriver().setup();
-                    driver.set(new ChromeDriver((ChromeOptions) options));
-                }
+
+                WebDriverManager.chromedriver().setup();
+                driver.set(new ChromeDriver((ChromeOptions) options));
             }
             case "firefox" -> {
                 options = driverOptions.firefoxUp();
-                if (!DriverConfig.getInstance().isGrid()) {
-                    WebDriverManager.firefoxdriver().setup();
-                    driver.set(new FirefoxDriver((FirefoxOptions) options));
-                }
+
+                WebDriverManager.firefoxdriver().setup();
+                driver.set(new FirefoxDriver((FirefoxOptions) options));
+
             }
             default -> {
                 if (browser.equals("iPhone X") || browser.equals("iPhone 6/7/8") || browser.equals("iPad") || browser.equals("Nexus 5")) {
                     options = driverOptions.mobileUp(browser);
-                    if (!DriverConfig.getInstance().isGrid()) {
-                        WebDriverManager.chromedriver().setup();
-                        driver.set(new ChromeDriver((ChromeOptions) options));
-                    }
+
+                    WebDriverManager.chromedriver().setup();
+                    driver.set(new ChromeDriver((ChromeOptions) options));
+
                 } else {
                     throw new RuntimeException("Desteklenmeyen Browser Seçildi");
                 }
-            }
-        }
-
-        if (DriverConfig.getInstance().isGrid()) {
-            try {
-                URL url = new URL(DriverConfig.getInstance().getGridUrl());
-                driver.set(new RemoteWebDriver(url, options));
-            } catch (MalformedURLException e) {
-                System.out.println("Hata Alındı");
             }
         }
 

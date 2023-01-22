@@ -1,6 +1,8 @@
 package pages;
 
-public class AllPages {
+import utility.SeleniumBase;
+
+public class AllPages{
 
     public AllPages(){
 
@@ -8,16 +10,26 @@ public class AllPages {
 
     //javada her class return type olabilir
     //Her page class return type ile private instance olusturduk
-    private AmazonPage amazonPage;
 
+    public SeleniumBase lib=new SeleniumBase();
+    private TrendyolHomePage trendyolHomePage;
+    private TrendyolSearchPage trendyolSearchPage;
 
     //her page class icin public method olusturup obje olusturacagiz
 
-    public AmazonPage amazonPage(){
-        if (amazonPage==null){ //eger benim burda olusturdugum instance apiDemosPage yani null ise
-            amazonPage=new AmazonPage(); //o zaman bunu bana bir obje olarak olustur daha sonra bu objeyi bana ver
+    public TrendyolHomePage trendyolPage(){
+        if (trendyolHomePage ==null){
+            trendyolHomePage =new TrendyolHomePage();
         }
-        return amazonPage; //ben bu methodu cagirdigim zaman onu kullanayim
+        return trendyolHomePage;
+    }
+
+    public TrendyolSearchPage trendyolSearchPage(){
+        if (trendyolSearchPage==null){
+            trendyolSearchPage=new TrendyolSearchPage();
+        }
+
+        return trendyolSearchPage;
     }
 
 }
