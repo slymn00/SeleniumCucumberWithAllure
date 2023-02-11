@@ -2,6 +2,9 @@ package stepdefinitions;
 
 import io.cucumber.java.*;
 import io.qameta.allure.Allure;
+import io.qameta.allure.listener.TestLifecycleListener;
+import io.qameta.allure.model.Status;
+import io.qameta.allure.model.TestResult;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utility.DataFinder;
@@ -11,17 +14,15 @@ import utility.Terminal;
 import java.io.ByteArrayInputStream;
 import java.util.Objects;
 
-public class Hooks {
+public class Hooks implements TestLifecycleListener {
 
-    @After
-    public void tearDown(Scenario scenario){
+    @Override
+    public void beforeTestStop(TestResult result){
 
-        if (scenario.isFailed()){
-            byte[] screenshot=((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-            Allure.addAttachment("Failed Screenshot", new ByteArrayInputStream(screenshot));
+        if (result.getStatus() == io.qameta.allure.model.Status.FAILED || result.getStatus() == Status.BROKEN) {
+            if (Driver.getDriver() != null)
+                Allure.addAttachment(result.getName(), new ByteArrayInputStream(((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES)));
         }
-
-        Driver.closeDriver();
     }
 
     @BeforeAll
