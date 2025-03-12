@@ -12,24 +12,24 @@ public class AllPages{
     //Her page class return type ile private instance olusturduk
 
     public SeleniumBase lib=new SeleniumBase();
-    private TrendyolHomePage trendyolHomePage;
-    private TrendyolSearchPage trendyolSearchPage;
+    private HouseOfTestHomePage houseOfTestHomePage;
+    private HouseOfTestServicesPage houseOfTestServicesPage;
 
     //her page class icin public method olusturup obje olusturacagiz
 
-    public TrendyolHomePage trendyolPage(){
-        if (trendyolHomePage ==null){
-            trendyolHomePage =new TrendyolHomePage();
+    public HouseOfTestHomePage houseOfTestHomePage(){
+        if (houseOfTestHomePage ==null){
+            houseOfTestHomePage =new HouseOfTestHomePage();
         }
-        return trendyolHomePage;
+        return houseOfTestHomePage;
     }
 
-    public TrendyolSearchPage trendyolSearchPage(){
-        if (trendyolSearchPage==null){
-            trendyolSearchPage=new TrendyolSearchPage();
+    public HouseOfTestServicesPage houseOfTestServices(){
+        if (houseOfTestServicesPage ==null){
+            houseOfTestServicesPage =new HouseOfTestServicesPage();
         }
 
-        return trendyolSearchPage;
+        return houseOfTestServicesPage;
     }
 
 }

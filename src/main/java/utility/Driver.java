@@ -2,7 +2,6 @@ package utility;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -17,49 +16,38 @@ public class Driver {
     private Driver() {
     }
 
-    // Sabit bir değişken olduğu için 'final' yapıldı
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
     public static void setUp(String browser) {
         DriverOptions driverOptions = new DriverOptions();
-        Capabilities options;
-        switch (browser) {
-            case "chrome" -> {
-                options = driverOptions.chromeUp();
 
+        switch (browser.toLowerCase()) {
+            case "chrome" -> {
+                ChromeOptions options = driverOptions.chromeUp();
                 WebDriverManager.chromedriver().setup();
-                driver.set(new ChromeDriver((ChromeOptions) options));
+                driver.set(new ChromeDriver(options));
             }
             case "firefox" -> {
-                options = driverOptions.firefoxUp();
-
+                FirefoxOptions options = driverOptions.firefoxUp();
                 WebDriverManager.firefoxdriver().setup();
-                driver.set(new FirefoxDriver((FirefoxOptions) options));
-
+                driver.set(new FirefoxDriver(options));
             }
             default -> {
-                if (browser.equals("iPhone X") || browser.equals("iPhone 6/7/8") || browser.equals("iPad") || browser.equals("Nexus 5")) {
-                    options = driverOptions.mobileUp(browser);
-
+                if (browser.matches("(?i)iPhone X|iPhone 6/7/8|iPad|Nexus 5")) {
+                    ChromeOptions options = driverOptions.mobileUp(browser);
                     WebDriverManager.chromedriver().setup();
-                    driver.set(new ChromeDriver((ChromeOptions) options));
-
+                    driver.set(new ChromeDriver(options));
                 } else {
-                    throw new RuntimeException("Desteklenmeyen Browser Seçildi");
+                    throw new RuntimeException("Desteklenmeyen Browser Seçildi: " + browser);
                 }
             }
         }
 
-        driver.get()
-                .manage()
-                .timeouts()
-                .implicitlyWait(Duration.ofSeconds(20));
-        driver.get()
-                .manage()
-                .timeouts()
-                .pageLoadTimeout(Duration.ofSeconds(40));
-
-
-
+        WebDriver currentDriver = driver.get();
+        if (currentDriver != null) {
+            currentDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+            currentDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
+        }
     }
 
     public static WebDriver getDriver() {
@@ -68,7 +56,7 @@ public class Driver {
 
     public static void closeDriver() {
         if (getDriver() != null) {
-            getDriver().manage().deleteAllCookies(); //ekledigimiz cookieleri silebilmek için eklendi.
+            getDriver().manage().deleteAllCookies();
             getDriver().quit();
             driver.remove();
         }
@@ -78,13 +66,17 @@ public class Driver {
         takeScreenShot("");
     }
 
-    @Attachment(value = "ScreenShot : {0}" , type = "image/png")
+    @Attachment(value = "ScreenShot : {0}", type = "image/png")
     public static byte[] takeScreenShot(String message) {
-        if(Driver.getDriver() == null) {
+        if (Driver.getDriver() == null) {
             System.out.println("Driver null olduğu için ekran görüntüsü alınamadı.");
+            return null;
         }
         return ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
-
-
 }
+
+
+
+
+

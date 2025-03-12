@@ -3,7 +3,6 @@ package utility;
 public class GetData {
 
     public enum Url {
-        AMAZON_URL,
-        TRENDYOL_URL;
+        HOUSE_OF_TEST_HOMEPAGE_URL
     }
 }

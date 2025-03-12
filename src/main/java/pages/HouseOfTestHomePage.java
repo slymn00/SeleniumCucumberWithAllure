@@ -7,15 +7,12 @@ import utility.Driver;
 
 import java.util.List;
 
-public class TrendyolSearchPage {
+public class HouseOfTestHomePage {
 
-    public TrendyolSearchPage(){
+    public HouseOfTestHomePage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-
     @FindBy(xpath = "//*[@class='prdct-desc-cntnr-ttl-w two-line-text'] | //*[@class='product-description__name']//span")
     public List<WebElement> textsSellerStoreName;
-
-
 }
