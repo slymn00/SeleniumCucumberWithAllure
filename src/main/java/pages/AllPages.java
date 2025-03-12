@@ -14,6 +14,8 @@ public class AllPages{
     public SeleniumBase lib=new SeleniumBase();
     private HouseOfTestHomePage houseOfTestHomePage;
     private HouseOfTestServicesPage houseOfTestServicesPage;
+    private HouseOfTestBlogsPage houseOfTestBlogsPage;
+    private HouseOfTestContactUsPage houseOfTestContactUsPage;
 
     //her page class icin public method olusturup obje olusturacagiz
 
@@ -30,6 +32,22 @@ public class AllPages{
         }
 
         return houseOfTestServicesPage;
+    }
+
+    public HouseOfTestBlogsPage housOfTestBlogsPage(){
+        if (houseOfTestBlogsPage ==null){
+            houseOfTestBlogsPage =new HouseOfTestBlogsPage();
+        }
+
+        return houseOfTestBlogsPage;
+    }
+
+    public HouseOfTestContactUsPage houseOfTestContactUsPage(){
+        if (houseOfTestContactUsPage ==null){
+            houseOfTestContactUsPage =new HouseOfTestContactUsPage();
+        }
+
+        return houseOfTestContactUsPage;
     }
 
 }

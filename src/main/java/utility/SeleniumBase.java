@@ -1,6 +1,8 @@
 package utility;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
+@Slf4j
 public class SeleniumBase {
 
     public void clickElement(WebElement element){
@@ -94,5 +97,28 @@ public class SeleniumBase {
         }catch (Exception e){
             Log.fail("Elementte sorunla karşılaşıldı",e);
         }
+    }
+
+    public void moveElement(WebElement element){
+        try {
+            Actions actions=new Actions(Driver.getDriver());
+            actions.moveToElement(element).build().perform();
+
+        }catch (Exception e){
+            Log.fail("Elementte sorunla karşılaşıldı",e);
+        }
+    }
+
+    public void sendKeys(WebElement element, String text){
+        try {
+            element.sendKeys(text);
+        }catch (Exception e){
+            Log.fail("Text gonderilemedi.");
+        }
+    }
+
+    public void switchToIframe(WebElement element) {
+
+        Driver.getDriver().switchTo().frame(element);
     }
 }
