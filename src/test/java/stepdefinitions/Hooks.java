@@ -25,6 +25,7 @@ public class Hooks implements TestLifecycleListener {
         }
     }
 
+
     @BeforeAll
     public static void removeReportHistory() {
 
