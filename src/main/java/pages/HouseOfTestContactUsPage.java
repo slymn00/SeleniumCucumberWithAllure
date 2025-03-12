@@ -10,19 +10,19 @@ public class HouseOfTestContactUsPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//input[contains(@id,'firstname')]")
+    @FindBy(name = "firstname")
     public WebElement firstNameInp;
 
-    @FindBy(xpath = "//input[contains(@id,'lastname')]")
+    @FindBy(name = "lastname")
     public WebElement lastNameInp;
 
-    @FindBy(xpath = "//input[contains(@id,'email')]")
+    @FindBy(name = "email")
     public WebElement emailInp;
 
-    @FindBy(xpath = "//input[contains(@id,'mobilephone')]")
+    @FindBy(name = "mobilephone")
     public WebElement mobilephoneInp;
 
-    @FindBy(xpath = "//input[contains(@id,'company')]")
+    @FindBy(name = "company")
     public WebElement companyInp;
 
     @FindBy(xpath = "//textarea[contains(@id,'message')]")

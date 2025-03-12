@@ -11,9 +11,9 @@ public class HouseOfTestContactUsStepDefs extends AllPages {
 
     @Given("{string} {string} {string} {string} {string} {string} alanlarının gorundugunu dogrula")
     public void alanlarınınGorundugunuDogrula(String fName, String lName, String email, String phone, String compName, String message) {
-        lib.Wait(2000);
+        lib.Wait(500);
         lib.moveElement(allPages.houseOfTestContactUsPage().contactSection);
-        lib.Wait(2000);
+        lib.Wait(500);
         lib.switchToIframe(allPages.houseOfTestContactUsPage().contactIframe);
 
         lib.control(lib.isDisplayed(allPages.houseOfTestContactUsPage().firstNameInp)&&lib.getTextOfElement(allPages.houseOfTestContactUsPage().labelFirstnameText).equals(fName),"Firstname text eşleşti","Text hatali ");
